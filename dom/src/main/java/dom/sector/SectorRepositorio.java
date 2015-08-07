@@ -6,12 +6,14 @@ import javax.annotation.PostConstruct;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
 
 @DomainService(repositoryFor = Sector.class)
+@DomainServiceLayout(menuOrder = "50", named = "Sector")
 public class SectorRepositorio {
 	public SectorRepositorio() {
 
@@ -28,11 +30,11 @@ public class SectorRepositorio {
 	@Programmatic
 	@PostConstruct
 	public void init() {
-		List<Sector> lista = this.listar();
-		if (lista.isEmpty()) {
-			this.nuevoSector("OTRO SECTOR", "None", false, false, false,
-					"Admin");
-		}
+//		List<Sector> lista = this.listar();
+		// if (lista.isEmpty()) {
+		// // this.nuevoSector("OTRO SECTOR", "None", false, false, false,
+		// // "Admin");
+		// }
 	}
 
 	/**
@@ -46,7 +48,7 @@ public class SectorRepositorio {
 	 * @return
 	 */
 
-	@MemberOrder(name = "Agregar", sequence = "10")
+	@MemberOrder(sequence = "10")
 	public Sector agregar(
 			@ParameterLayout(named = "Nombre") final String nombre_sector,
 			@ParameterLayout(named = "Responsable") final String responsable,
@@ -108,7 +110,7 @@ public class SectorRepositorio {
 	 * @param nombreSector
 	 * @return
 	 */
-	//@Action(hidden = Where.EVERYWHERE)
+	// @Action(hidden = Where.EVERYWHERE)
 	@MemberOrder(sequence = "21")
 	public List<Sector> buscar(
 			@ParameterLayout(named = "Nombre", typicalLength = 100) final String nombreSector) {
@@ -204,17 +206,11 @@ public class SectorRepositorio {
 		return listarSectores;
 	}
 
-	// //////////////////////////////////////
-	// CurrentUserName
-	// //////////////////////////////////////
 
 	private String currentUserName() {
 		return container.getUser().getName();
 	}
 
-	// //////////////////////////////////////
-	// Injected Services
-	// //////////////////////////////////////
 
 	@javax.inject.Inject
 	private DomainObjectContainer container;

@@ -6,6 +6,7 @@ import javax.jdo.annotations.Column;
 import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
 
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.MemberOrder;
@@ -22,12 +23,16 @@ import dom.sector.SectorRepositorio;
 @PersistenceCapable
 @Inheritance(strategy = InheritanceStrategy.SUBCLASS_TABLE)
 public class Documento implements Comparable<Documento>{
+	public Documento()
+	{
+		
+	}
 	
 	private LocalDateTime time;
-
+	@Persistent
 	@Property(hidden=Where.EVERYWHERE)
-	@javax.jdo.annotations.Column(allowsNull = "false")
-	@MemberOrder(name="system_time",sequence = "100")
+	@javax.jdo.annotations.Column(allowsNull = "True")
+	@MemberOrder(sequence = "100")
 	public LocalDateTime getTime() {
 		return time;
 	}
@@ -39,7 +44,7 @@ public class Documento implements Comparable<Documento>{
 	private LocalDate fecha;
 
 	@javax.jdo.annotations.Column(allowsNull = "false")
-	@MemberOrder(name="Fecha",sequence = "1")
+	@MemberOrder(sequence = "1")
 	public LocalDate getFecha() {
 		return fecha;
 	}
@@ -67,10 +72,11 @@ public class Documento implements Comparable<Documento>{
 
 	private String descripcion;
 
-	@MemberOrder(name = "Descripcion", sequence = "1")
+	@MemberOrder(sequence = "1")
 	@javax.jdo.annotations.Column(allowsNull = "false", length=250)
 	//@MultiLine
 	//@MaxLength(255)
+	
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -94,7 +100,7 @@ public class Documento implements Comparable<Documento>{
 
 	private Blob adjuntar;
 
-	@MemberOrder(name = "Adjuntar", sequence = "5")
+	@MemberOrder(sequence = "5")
 	@javax.jdo.annotations.Persistent(defaultFetchGroup = "false")
 	@javax.jdo.annotations.Column(allowsNull = "true", name = "adjunto")
 	@Property(hidden=Where.EVERYWHERE, editing=Editing.DISABLED)
@@ -124,7 +130,7 @@ public class Documento implements Comparable<Documento>{
 	
 	private Sector sector;
 
-	@MemberOrder(name="Origen",sequence = "2")
+	@MemberOrder(sequence = "2")
 	@Column(allowsNull = "True")
 	//@Mandatory
 	public Sector getSector() {
@@ -144,11 +150,11 @@ public class Documento implements Comparable<Documento>{
 		return this.sectorRepositorio.listar();
 	}
 	
-	private Boolean ultimo;
+	private boolean ultimo;
 
 	@Property(hidden = Where.EVERYWHERE)
 	@MemberOrder(sequence = "100")
-	@javax.jdo.annotations.Column(allowsNull = "true")
+	@javax.jdo.annotations.Column(allowsNull = "false")
 	public boolean getUltimo() {
 		return ultimo;
 	}
