@@ -84,7 +84,7 @@ public class Sector implements Comparable<Sector> {
 	@Property(
 	        optionality = Optionality.OPTIONAL
 	)
-	@javax.jdo.annotations.Column(allowsNull = "true")
+	@javax.jdo.annotations.Column(allowsNull = "true",defaultValue="true")
 	@MemberOrder(sequence = "20")
 	public Boolean isResolucion() {
 		return resolucion;
@@ -99,7 +99,7 @@ public class Sector implements Comparable<Sector> {
 	@Property(
 	        optionality = Optionality.OPTIONAL
 	)
-	@javax.jdo.annotations.Column(allowsNull = "true")
+	@javax.jdo.annotations.Column(allowsNull = "true",defaultValue="true")
 	@MemberOrder(sequence = "40")
 	public Boolean isDisposicion() {
 		return disposicion;
@@ -114,7 +114,7 @@ public class Sector implements Comparable<Sector> {
 	@Property(
 	        optionality = Optionality.OPTIONAL
 	)
-	@javax.jdo.annotations.Column(allowsNull = "true")
+	@javax.jdo.annotations.Column(allowsNull = "true",defaultValue="true")
 	@MemberOrder(sequence = "50")
 	public Boolean isExpediente() {
 		return expediente;
