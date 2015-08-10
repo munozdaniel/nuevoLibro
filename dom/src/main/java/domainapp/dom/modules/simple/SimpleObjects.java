@@ -30,8 +30,7 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.query.QueryDefault;
 
-@DomainService(repositoryFor = SimpleObject.class)
-@DomainServiceLayout(menuOrder = "10")
+
 public class SimpleObjects {
 
     //region > listAll (action)

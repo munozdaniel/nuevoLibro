@@ -35,31 +35,6 @@ import org.apache.isis.applib.services.eventbus.ActionDomainEvent;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.util.ObjectContracts;
 
-@javax.jdo.annotations.PersistenceCapable(identityType=IdentityType.DATASTORE)
-@javax.jdo.annotations.DatastoreIdentity(
-        strategy=javax.jdo.annotations.IdGeneratorStrategy.IDENTITY,
-         column="id")
-@javax.jdo.annotations.Version(
-        strategy=VersionStrategy.VERSION_NUMBER, 
-        column="version")
-@javax.jdo.annotations.Queries({
-        @javax.jdo.annotations.Query(
-                name = "find", language = "JDOQL",
-                value = "SELECT "
-                        + "FROM domainapp.dom.modules.simple.SimpleObject "),
-        @javax.jdo.annotations.Query(
-                name = "findByName", language = "JDOQL",
-                value = "SELECT "
-                        + "FROM domainapp.dom.modules.simple.SimpleObject "
-                        + "WHERE name.indexOf(:name) >= 0 ")
-})
-@javax.jdo.annotations.Unique(name="SimpleObject_name_UNQ", members = {"name"})
-@DomainObject(
-        objectType = "SIMPLE"
-)
-@DomainObjectLayout(
-        bookmarking = BookmarkPolicy.AS_ROOT
-)
 public class SimpleObject implements Comparable<SimpleObject> {
 
 
