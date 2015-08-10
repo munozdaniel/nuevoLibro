@@ -20,7 +20,7 @@ import dom.sector.Sector;
 import dom.sector.SectorRepositorio;
 
 @DomainService(repositoryFor = Resoluciones.class)
-@DomainServiceLayout(menuOrder = "30", named = "RESOLUCION")
+@DomainServiceLayout(menuOrder = "30", named = "Resolución")
 public class ResolucionesRepositorio {
 	public boolean ocupado = false;
 
