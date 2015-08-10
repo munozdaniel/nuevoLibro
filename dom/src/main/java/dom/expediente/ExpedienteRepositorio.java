@@ -20,7 +20,7 @@ import dom.sector.Sector;
 import dom.sector.SectorRepositorio;
 
 @DomainService(repositoryFor = Expediente.class)
-@DomainServiceLayout(menuOrder = "60", named = "EXPEDIENTES")
+@DomainServiceLayout(menuOrder = "60", named = "EXPEDIENTE")
 public class ExpedienteRepositorio {
 	// public final Lock monitor = new ReentrantLock();
 		public boolean ocupado = false;
