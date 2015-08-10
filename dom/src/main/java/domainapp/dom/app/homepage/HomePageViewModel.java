@@ -18,32 +18,32 @@
  */
 package domainapp.dom.app.homepage;
 
-import domainapp.dom.modules.simple.SimpleObject;
-import domainapp.dom.modules.simple.SimpleObjects;
-
 import java.util.List;
+
 import org.apache.isis.applib.annotation.ViewModel;
+
+import dom.nota.Nota;
+import dom.nota.NotaRepositorio;
 
 @ViewModel
 public class HomePageViewModel {
 
     //region > title
     public String title() {
-        return getObjects().size() + " objects";
+        return  "Notas";
     }
     //endregion
 
     //region > object (collection)
     @org.apache.isis.applib.annotation.HomePage
-    public List<SimpleObject> getObjects() {
-        return simpleObjects.listAll();
+    public List<Nota> getObjects() {
+        return notaRepositorio.listar();
     }
     //endregion
 
     //region > injected services
 
     @javax.inject.Inject
-    SimpleObjects simpleObjects;
-
+    NotaRepositorio notaRepositorio;
     //endregion
 }
