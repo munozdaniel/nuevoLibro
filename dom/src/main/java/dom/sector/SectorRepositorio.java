@@ -13,7 +13,7 @@ import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
 
 @DomainService(repositoryFor = Sector.class)
-@DomainServiceLayout(menuOrder = "50", named = "Sector")
+@DomainServiceLayout(menuOrder = "50", named = "SECTOR")
 public class SectorRepositorio {
 	public SectorRepositorio() {
 

@@ -27,7 +27,7 @@ import dom.sector.Sector;
 import dom.sector.SectorRepositorio;
 
 @DomainService(repositoryFor = Memo.class)
-@DomainServiceLayout(menuOrder = "20", named = "Memos")
+@DomainServiceLayout(menuOrder = "20", named = "MEMO")
 public class MemoRepositorio {
 	public boolean ocupado = false;
 

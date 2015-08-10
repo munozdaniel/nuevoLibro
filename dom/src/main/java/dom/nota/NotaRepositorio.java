@@ -18,7 +18,7 @@ import org.joda.time.LocalDateTime;
 import dom.sector.Sector;
 import dom.sector.SectorRepositorio;
 @DomainService(repositoryFor = Nota.class)
-@DomainServiceLayout(menuOrder = "10", named = "Notas")
+@DomainServiceLayout(menuOrder = "10", named = "NOTA")
 public class NotaRepositorio {
 		public boolean ocupado = false;
 
