@@ -54,7 +54,18 @@ public class Sector implements Comparable<Sector> {
 	public String iconName() {
 		return "sector";
 	}
-
+	/*Corresponde al id de la tabla sector de la bd gestionusuarios*/
+	private int sector_id;
+	@Persistent
+	@javax.jdo.annotations.Column(allowsNull = "false")
+	@MemberOrder(sequence = "10")
+	@Property(hidden=Where.ANYWHERE)
+	public int getSector_id() {
+		return sector_id;
+	}
+	public void setSector_id(int sector_id) {
+		this.sector_id = sector_id;
+	}
 	private String nombre_sector;
 	@Persistent
 	@javax.jdo.annotations.Column(allowsNull = "false")
@@ -160,4 +171,5 @@ public class Sector implements Comparable<Sector> {
 		return ObjectContracts.compare(this, sector, "nombre_sector");
 
 	}
+	
 }

@@ -1,5 +1,9 @@
 package dom.sector;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -12,8 +16,10 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.query.QueryDefault;
 
+import conexion.Conexion;
+
 @DomainService(repositoryFor = Sector.class)
-@DomainServiceLayout(menuOrder = "50", named = "SECTOR")
+@DomainServiceLayout(menuOrder = "100", named = "Sector")
 public class SectorRepositorio {
 	public SectorRepositorio() {
 
@@ -30,13 +36,54 @@ public class SectorRepositorio {
 	@Programmatic
 	@PostConstruct
 	public void init() {
-//		List<Sector> lista = this.listar();
-		// if (lista.isEmpty()) {
-		// // this.nuevoSector("OTRO SECTOR", "None", false, false, false,
-		// // "Admin");
-		// }
+		
+		List<Sector> lista = this.listar();
+		 if (lista.isEmpty()) {
+					Connection con = Conexion.GetConnectionGestionUsuarios();
+					boolean disposicion = false;
+					boolean resolucion = false;
+					boolean expediente = false;
+					String responsable = "Sin Definir";
+					try {
+						PreparedStatement stmt = con
+								.prepareStatement("Select * from sectores where sector_activo =1");
+						ResultSet rs = stmt.executeQuery();
+						
+						while (rs.next()) {
+							 this.agregarDesdeBD(rs.getInt("sector_id"),rs.getString("sector_nombre"),
+									responsable, disposicion, expediente, resolucion);
+						}
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+		 }
 	}
-
+	private Sector agregarDesdeBD(final int sector_id,final String nombre_sector,
+			final String responsable, final Boolean disposicion,
+			final Boolean expediente, final Boolean resolucion) {
+		final Sector unSector = this.container
+				.newTransientInstance(Sector.class);
+		unSector.setNombre_sector(nombre_sector.toUpperCase().trim());
+		unSector.setSector_id(sector_id);
+		unSector.setHabilitado(true);
+		unSector.setCreadoPor(this.currentUserName());
+		unSector.setResponsable(responsable);
+		if (resolucion != null)
+			unSector.setResolucion(resolucion);
+		else
+			unSector.setResolucion(false);
+		if (disposicion != null)
+			unSector.setDisposicion(disposicion);
+		else
+			unSector.setDisposicion(false);
+		if (expediente != null)
+			unSector.setExpediente(expediente);
+		else
+			unSector.setExpediente(false);
+		this.container.persistIfNotAlready(unSector);
+		this.container.flush();
+		return unSector;
+	}
 	/**
 	 * Insertar un Sector.
 	 * 
@@ -86,7 +133,7 @@ public class SectorRepositorio {
 		this.container.flush();
 		return unSector;
 	}
-
+	
 	/**
 	 * listar Devuelve todos los sectores. Hay que chequear aquellos sectores
 	 * que corresponden solo a Resolucion o Disposicion, etc.
