@@ -74,7 +74,6 @@ public class Disposicion extends Documento{
 	 */
 	@SuppressWarnings("unused")
 	private String nro;
-	@javax.jdo.annotations.Column(allowsNull = "false",name="Nro")
 	@Property(editing=Editing.DISABLED,notPersisted=true)
 	@MemberOrder(sequence = "0")
 	public String getNro() {

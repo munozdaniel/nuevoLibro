@@ -23,7 +23,7 @@ import dom.sector.Sector;
 import dom.sector.SectorRepositorio;
 
 @DomainService(repositoryFor = Disposicion.class)
-@DomainServiceLayout(menuOrder = "40", named = "DISPOSICIONES")
+@DomainServiceLayout(menuOrder = "40", named = "DISPOSICION")
 public class DisposicionRepositorio {
 	public final Lock monitor = new ReentrantLock();
 
