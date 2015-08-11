@@ -211,7 +211,7 @@ public class SectorRepositorio {
 	 */
 	// @Action(hidden = Where.EVERYWHERE)
 	@MemberOrder(sequence = "21")
-	public List<Sector> buscar(
+	private List<Sector> buscar(
 			@ParameterLayout(named = "Nombre", typicalLength = 100) final String nombreSector) {
 		final List<Sector> listarSectores = this.container
 				.allMatches(new QueryDefault<Sector>(Sector.class,
