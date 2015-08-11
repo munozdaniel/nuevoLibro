@@ -17,11 +17,12 @@ import org.apache.isis.applib.util.ObjectContracts;
 @javax.jdo.annotations.PersistenceCapable(identityType = IdentityType.DATASTORE)
 @javax.jdo.annotations.DatastoreIdentity(strategy = javax.jdo.annotations.IdGeneratorStrategy.IDENTITY, column = "id")
 @javax.jdo.annotations.Version(strategy = VersionStrategy.VERSION_NUMBER, column = "version")
-
 @javax.jdo.annotations.Queries({
 		@javax.jdo.annotations.Query(name = "autoCompletePorNombreSector", language = "JDOQL", value = "SELECT "
 				+ "FROM dom.sector.Sector "
 				+ "WHERE nombre_sector.indexOf(:nombre_sector) >= 0"),
+		@javax.jdo.annotations.Query(name = "buscarPorId", language = "JDOQL", value = "SELECT "
+				+ " FROM dom.sector.Sector " + " WHERE sector_id == :id"),
 		@javax.jdo.annotations.Query(name = "todosLosSectoresTrue", language = "JDOQL", value = "SELECT "
 				+ " FROM dom.sector.Sector " + " WHERE habilitado == true"),
 		@javax.jdo.annotations.Query(name = "todosLosSectores", language = "JDOQL", value = "SELECT "
@@ -38,15 +39,13 @@ import org.apache.isis.applib.util.ObjectContracts;
 				+ "FROM dom.sector.Sector "
 				+ "WHERE "
 				+ " nombre_sector.indexOf(:nombre_sector) >= 0") })
-
 @DomainObject(objectType = "SECTOR")
 @DomainObjectLayout(bookmarking = BookmarkPolicy.AS_CHILD)
-
 public class Sector implements Comparable<Sector> {
-	public Sector()
-	{
-		
+	public Sector() {
+
 	}
+
 	public String title() {
 		return this.getNombre_sector();
 	}
@@ -54,19 +53,24 @@ public class Sector implements Comparable<Sector> {
 	public String iconName() {
 		return "sector";
 	}
-	/*Corresponde al id de la tabla sector de la bd gestionusuarios*/
+
+	/* Corresponde al id de la tabla sector de la bd gestionusuarios */
 	private int sector_id;
+
 	@Persistent
 	@javax.jdo.annotations.Column(allowsNull = "false")
 	@MemberOrder(sequence = "10")
-	@Property(hidden=Where.ANYWHERE)
+	@Property(hidden = Where.ANYWHERE)
 	public int getSector_id() {
 		return sector_id;
 	}
+
 	public void setSector_id(int sector_id) {
 		this.sector_id = sector_id;
 	}
+
 	private String nombre_sector;
+
 	@Persistent
 	@javax.jdo.annotations.Column(allowsNull = "false")
 	@MemberOrder(sequence = "10")
@@ -79,6 +83,7 @@ public class Sector implements Comparable<Sector> {
 	}
 
 	private String responsable;
+
 	@Persistent
 	@javax.jdo.annotations.Column(allowsNull = "false")
 	@MemberOrder(sequence = "11")
@@ -92,10 +97,8 @@ public class Sector implements Comparable<Sector> {
 
 	private Boolean resolucion;
 
-	@Property(
-	        optionality = Optionality.OPTIONAL
-	)
-	@javax.jdo.annotations.Column(allowsNull = "true",defaultValue="true")
+	@Property(optionality = Optionality.OPTIONAL)
+	@javax.jdo.annotations.Column(allowsNull = "true", defaultValue = "true")
 	@MemberOrder(sequence = "20")
 	public Boolean isResolucion() {
 		return resolucion;
@@ -107,40 +110,38 @@ public class Sector implements Comparable<Sector> {
 
 	private Boolean disposicion;
 
-	@Property(
-	        optionality = Optionality.OPTIONAL
-	)
-	@javax.jdo.annotations.Column(allowsNull = "true",defaultValue="true")
+	@Property(optionality = Optionality.OPTIONAL)
+	@javax.jdo.annotations.Column(allowsNull = "true", defaultValue = "true")
 	@MemberOrder(sequence = "40")
 	public Boolean isDisposicion() {
 		return disposicion;
 	}
-	
 
 	public void setDisposicion(Boolean disposicion) {
 		this.disposicion = disposicion;
 	}
 
 	private Boolean expediente;
-	@Property(
-	        optionality = Optionality.OPTIONAL
-	)
-	@javax.jdo.annotations.Column(allowsNull = "true",defaultValue="true")
+
+	@Property(optionality = Optionality.OPTIONAL)
+	@javax.jdo.annotations.Column(allowsNull = "true", defaultValue = "true")
 	@MemberOrder(sequence = "50")
 	public Boolean isExpediente() {
 		return expediente;
 	}
-	public Boolean defaultExpediente()
-	{
+
+	public Boolean defaultExpediente() {
 		return true;
 	}
+
 	public void setExpediente(Boolean expediente) {
 		this.expediente = expediente;
 	}
-	
+
 	private String creadoPor;
+
 	@Persistent
-	@Property(hidden = Where.EVERYWHERE, editing=Editing.DISABLED)
+	@Property(hidden = Where.EVERYWHERE, editing = Editing.DISABLED)
 	@javax.jdo.annotations.Column(allowsNull = "false")
 	public String getCreadoPor() {
 		return creadoPor;
@@ -171,5 +172,5 @@ public class Sector implements Comparable<Sector> {
 		return ObjectContracts.compare(this, sector, "nombre_sector");
 
 	}
-	
+
 }
